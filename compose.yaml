@@ -1,0 +1,46 @@
+services:
+    server:
+        build:
+            context: .
+            target: final
+        ports:
+            - 8080:8080
+        depends_on:
+            db:
+                condition: service_healthy
+        container_name: servicemanual
+        environment:
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USER=${DB_USER}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=${DOTNET_SYSTEM_GLOBALIZATION_INVARIANT}
+        networks:
+            - dev
+    db:
+        image: postgres
+        restart: always
+        user: ${DB_USER}
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        container_name: servicemanual-db
+        environment:
+            - POSTGRES_DB=${DB_DATABASE}
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=${DOTNET_SYSTEM_GLOBALIZATION_INVARIANT}
+        expose:
+            - ${DB_PORT}
+        healthcheck:
+            test: [ "CMD", "pg_isready" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        networks:
+            - dev
+volumes:
+    db-data:
+networks:
+    dev:
+        driver: bridge
