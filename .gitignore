@@ -301,3 +301,9 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+
+# Visual Studio Code editor files
+.vscode/
+
+# Environment variables file
+.env
