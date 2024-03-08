@@ -9,7 +9,7 @@ namespace EtteplanMORE.ServiceManual.UnitTests.ApplicationCore.Services.FactoryD
     public class FactoryDeviceGet
     {
         [Fact]
-        public async void AllCars()
+        public async void AllCards()
         {
             IFactoryDeviceService factoryDeviceService = new FactoryDeviceService();
 
