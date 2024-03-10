@@ -1,4 +1,5 @@
-﻿using EtteplanMORE.ServiceManual.ApplicationCore.Entities;
+﻿using System.Text.Json.Serialization;
+using EtteplanMORE.ServiceManual.ApplicationCore.Entities;
 using EtteplanMORE.ServiceManual.ApplicationCore.Interfaces;
 using EtteplanMORE.ServiceManual.ApplicationCore.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +22,17 @@ builder.Services.AddDbContext<FactoryDeviceDbContext>(optionsBuilder =>
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
+
+builder.Services.AddScoped<IFactoryDeviceService, FactoryDeviceService>();
+builder.Services.AddScoped<IMaintenanceTaskService, MaintenanceTaskService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<IFactoryDeviceService, FactoryDeviceService>();
 
 var app = builder.Build();
 

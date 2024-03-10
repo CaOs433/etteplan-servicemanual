@@ -8,6 +8,7 @@ namespace EtteplanMORE.ServiceManual.ApplicationCore.Entities
         public FactoryDeviceDbContext(DbContextOptions<FactoryDeviceDbContext> options) : base(options) { }
 
         public DbSet<FactoryDevice> FactoryDevices { get; set; }
+        public DbSet<MaintenanceTask> MaintenanceTasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
