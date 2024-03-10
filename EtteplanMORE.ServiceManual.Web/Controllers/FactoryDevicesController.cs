@@ -37,7 +37,10 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                Console.WriteLine(ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Internal server error occurred. See the server logs for more details.");
             }
         }
 
@@ -67,7 +70,10 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                Console.WriteLine(ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Internal server error occurred. See the server logs for more details.");
             }
         }
 
@@ -91,7 +97,10 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                Console.WriteLine(ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Internal server error occurred. See the server logs for more details.");
             }
         }
 
@@ -132,7 +141,10 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                Console.WriteLine(ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Internal server error occurred. See the server logs for more details.");
             }
         }
 
@@ -157,7 +169,10 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                Console.WriteLine(ex.Message);
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Internal server error occurred. See the server logs for more details.");
             }
         }
 
