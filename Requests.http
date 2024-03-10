@@ -1,0 +1,92 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@hostname=localhost
+@port=8080
+
+
+# Factory Devices API:
+
+GET http://{{hostname}}:{{port}}/api/FactoryDevices/
+Accept: application/json
+
+###
+
+GET http://{{hostname}}:{{port}}/api/FactoryDevices/7
+Accept: application/json
+
+###
+
+POST http://{{hostname}}:{{port}}/api/FactoryDevices
+Content-Type: application/json
+
+{
+    "Name": "POST Test Device 1",
+    "Year": 1998,
+    "Type": "Type 7"
+}
+
+###
+
+PUT http://{{hostname}}:{{port}}/api/FactoryDevices/5
+Content-Type: application/json
+
+{
+    "Id": 5,
+    "Name": "PUT Test Device 1",
+    "Year": 1898,
+    "Type": "Type 9"
+}
+
+###
+
+DELETE http://{{hostname}}:{{port}}/api/FactoryDevices/5
+Accept: application/json
+
+###
+
+
+# Maintenance Tasks API:
+
+GET http://{{hostname}}:{{port}}/api/MaintenanceTasks/
+Accept: application/json
+
+###
+
+GET http://{{hostname}}:{{port}}/api/MaintenanceTasks/2
+Accept: application/json
+
+###
+
+GET http://{{hostname}}:{{port}}/api/MaintenanceTasks/byfactorydevice/1
+Accept: application/json
+
+###
+POST http://{{hostname}}:{{port}}/api/MaintenanceTasks/
+Content-Type: application/json
+
+{
+    "factoryDeviceId": 1,
+    "registrationTime": "2024-02-04T10:32:07",
+    "description": "Battery won't charge",
+    "severity": "critical",
+    "status": "open"
+}
+
+###
+
+PUT http://{{hostname}}:{{port}}/api/MaintenanceTasks/3
+Content-Type: application/json
+Accept: application/json
+
+{
+    "id": 3,
+    "factoryDeviceId": 1,
+    "registrationTime": "2024-03-01T14:17:39",
+    "description": "Battery won't charge",
+    "severity": "critical",
+    "status": "closed"
+}
+
+###
+
+DELETE http://{{hostname}}:{{port}}/api/MaintenanceTasks/3
+Accept: application/json
