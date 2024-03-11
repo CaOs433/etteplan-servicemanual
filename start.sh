@@ -47,7 +47,9 @@ if ! grep -q "^DB_PASSWORD=" "$ENV_FILE"; then
     echo "DB_PASSWORD=$db_password" >> "$ENV_FILE"
 fi
 
-echo "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=0" >> "$ENV_FILE"
+if ! grep -q "^DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=" "$ENV_FILE"; then
+    echo "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=0" >> "$ENV_FILE"
+fi
 
 echo "The .env file has been created or updated."
 
