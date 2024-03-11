@@ -70,6 +70,9 @@ See REST Client: <https://marketplace.visualstudio.com/items?itemName=humao.rest
 
 Work in progress...
 
+There's some incomplete unit tests done, but some work is still needed.
+Running them needs also some configuration.
+
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [PostgreSQL](https://www.postgresql.org/) - Database
