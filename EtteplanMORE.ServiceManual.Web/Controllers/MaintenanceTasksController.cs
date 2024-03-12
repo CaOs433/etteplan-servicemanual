@@ -85,24 +85,37 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
         ///     HTTP POST: api/MaintenanceTasks/
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] MaintenanceTask maintenanceTaskDto)
+        public async Task<IActionResult> Post([FromBody] MaintenanceTaskDto maintenanceTaskDto)
         {
             try
             {
+                if (maintenanceTaskDto.FactoryDeviceId == null)
+                {
+                    return BadRequest("FactoryDeviceId required.");
+                }
                 // Convert timezone to UTC
                 DateTime registrationTimeUtc = maintenanceTaskDto.RegistrationTime.ToUniversalTime();
 
                 MaintenanceTask maintenanceTask = new MaintenanceTask()
                 {
-                    FactoryDeviceId = maintenanceTaskDto.FactoryDeviceId,
+                    FactoryDeviceId = (int)maintenanceTaskDto.FactoryDeviceId,
                     RegistrationTime = registrationTimeUtc,
                     Description = maintenanceTaskDto.Description,
                     Severity = maintenanceTaskDto.Severity,
                     Status = maintenanceTaskDto.Status
                 };
-                await _maintenanceTaskService.Create(maintenanceTask);
+                MaintenanceTask createdMaintenanceTask = await _maintenanceTaskService.Create(maintenanceTask);
 
-                return CreatedAtAction(nameof(Get), new { id = maintenanceTask.Id }, maintenanceTask);
+                return CreatedAtAction(nameof(Get), new { id = maintenanceTask.Id }, new MaintenanceTaskDto()
+                    {
+                        Id = maintenanceTask.Id,
+                        FactoryDevice = createdMaintenanceTask.FactoryDevice,
+                        RegistrationTime = maintenanceTask.RegistrationTime,
+                        Description = maintenanceTask.Description,
+                        Severity = maintenanceTask.Severity,
+                        Status = maintenanceTask.Status
+                    }
+                );
             }
             catch (Exception ex)
             {
@@ -117,7 +130,7 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
         ///     HTTP PUT: api/MaintenanceTasks/{id}
         /// </summary>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] MaintenanceTask maintenanceTaskDto)
+        public async Task<IActionResult> Put(int id, [FromBody] MaintenanceTaskDto maintenanceTaskDto)
         {
             try
             {
@@ -136,7 +149,10 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
                 // Convert timezone to UTC
                 DateTime registrationTimeUtc = maintenanceTaskDto.RegistrationTime.ToUniversalTime();
 
-                maintenanceTask.FactoryDeviceId = maintenanceTaskDto.FactoryDeviceId;
+                if (maintenanceTaskDto.FactoryDeviceId != null)
+                {
+                    maintenanceTask.FactoryDeviceId = (int)maintenanceTaskDto.FactoryDeviceId;
+                }
                 maintenanceTask.RegistrationTime = registrationTimeUtc;
                 maintenanceTask.Description = maintenanceTaskDto.Description;
                 maintenanceTask.Severity = maintenanceTaskDto.Severity;

@@ -3,6 +3,7 @@ namespace EtteplanMORE.ServiceManual.ApplicationCore.Entities
     public class MaintenanceTaskDto
     {
         public int Id { get; set; }
+        public int? FactoryDeviceId { get; set; }
         public FactoryDevice? FactoryDevice { get; set; }
         public DateTime RegistrationTime { get; set; }
         public string? Description { get; set; }

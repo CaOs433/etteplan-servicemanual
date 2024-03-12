@@ -93,7 +93,14 @@ namespace EtteplanMORE.ServiceManual.Web.Controllers
                 };
                 await _factoryDeviceService.Create(device);
 
-                return CreatedAtAction(nameof(Get), new { id = device.Id }, device);
+                return CreatedAtAction(nameof(Get), new { id = device.Id }, new FactoryDeviceDto()
+                    {
+                        Id = device.Id,
+                        Name = device.Name,
+                        Year = device.Year,
+                        Type = device.Type
+                    }
+                );
             }
             catch (Exception ex)
             {

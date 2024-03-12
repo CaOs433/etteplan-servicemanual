@@ -41,10 +41,12 @@ namespace EtteplanMORE.ServiceManual.ApplicationCore.Services
                 .ToListAsync();
         }
 
-        public async Task Create(MaintenanceTask maintenanceTask)
+        public async Task<MaintenanceTask> Create(MaintenanceTask maintenanceTask)
         {
             _dbContext.MaintenanceTasks.Add(maintenanceTask);
             await _dbContext.SaveChangesAsync();
+
+            return await this.Get(maintenanceTask.Id);
         }
 
         public async Task<MaintenanceTask> Update(MaintenanceTask maintenanceTask)
