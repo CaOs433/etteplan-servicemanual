@@ -8,7 +8,7 @@ RUN apk add --no-cache icu-libs
 
 COPY . /source
 
-WORKDIR /source/EtteplanMORE.ServiceManual.Web
+WORKDIR /source/EtteplanMORE.ServiceManual.UnitTests
 
 # This is the architecture you’re building for, which is passed in by the builder.
 # Placing it here allows the previous steps to be cached across architectures.
@@ -20,6 +20,11 @@ ARG TARGETARCH
 #   work in .NET 6.0.
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
     dotnet publish -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-contained false -o /app
+
+# Run tests.
+#RUN dotnet test EtteplanMORE.ServiceManual.UnitTests.csproj
+
+WORKDIR /source/EtteplanMORE.ServiceManual.Web
 
 # If you need to enable globalization and time zones:
 # https://github.com/dotnet/dotnet-docker/blob/main/samples/enable-globalization.md

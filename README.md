@@ -68,10 +68,19 @@ See REST Client: <https://marketplace.visualstudio.com/items?itemName=humao.rest
 
 ## 🔧 Running the tests <a name = "tests"></a>
 
-Work in progress...
+The tests doesn't cover everything yet, but at least all valid basic HTTP requests are included.
 
-There's some incomplete unit tests done, but some work is still needed.
-Running them needs also some configuration.
+To run unit tests on starting the app, uncomment following line in the Dockerfile:
+
+```dockerfile
+# Run tests.
+#RUN dotnet test EtteplanMORE.ServiceManual.UnitTests.csproj  # <-- Uncommend this line
+
+```
+
+Now you can start the app with the `start.sh` -script or `docker compose up --build`,
+and if the tests will pass, then the app starts - and if they won't,
+you can see the test logs in the command line.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
